@@ -12,25 +12,23 @@
         <h1 class="title">Авторизация</h1>
         <p class="subtitle">Авторизируйтесь чтобы перейти к профилю</p>
         <form action="" method="post" class="registration-form">
-            <div class="form-group">
-                {% csrf_token %}
-                <label>
-                    <input type="text" name="username" placeholder="Имя пользователя" value="{{ data.username }}" required>
-                    {% if form.username %}
-                        <div class="mt-1 text-danger">{{ form.username|first }}</div>
-                    {% endif %}
-                </label>
-                <label>
-                    <input type="password" id="password" name="password" placeholder="Пароль" required>
-                    {% if form.password %}
-                        <div class="mt-1 text-danger">{{ form.password|first }}</div>
-                    {% endif %}
-                    <button type="button" id="togglePassword" class="toggle-password">Показать</button>
-                </label>
-                <a href="{% url 'profile-view' %}">
+            {% csrf_token %}
+            <label>
+                <input type="text" name="username" placeholder="Имя пользователя" value="{{ data.username }}" required>
+                {% if form.username %}
+                    <div class="mt-1 text-danger">{{ form.username|first }}</div>
+                {% endif %}
+            </label>
+            <label>
+                <input type="password" id="password" name="password" placeholder="Пароль" required>
+                {% if form.password %}
+                    <div class="mt-1 text-danger">{{ form.password|first }}</div>
+                {% endif %}
+                <button type="button" id="togglePassword" class="toggle-password">Показать</button>
+            </label>
+            <a href="{% url 'profile-view' %}">
                 <button type="submit" class="submit-btn">Зарегистрироваться</button>
-                </a>
-            </div>
+            </a>
         </form>
         <p class="login-redirect">Хотите создать новый аккаунт? <a href="{% url 'signup-view' %}" class="login-link">Регистрация</a></p>
     </div>
