@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+
+  db:
+    image: postgres:14.6-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: pg_isready -U ${DB_USER} -d ${DB_NAME}
+      interval: 3s
+      timeout: 3s
+      retries: 5
