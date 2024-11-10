@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Регистрация</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Регистрация</h1>
+        <p class="subtitle">Зарегистрируйтесь и получите полный доступ к нашему приложению</p>
+        <form action="" method="post" class="registration-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>
+                    <input type="text" name="first_name" placeholder="Имя" value="{{ data.first_name }}">
+                </label>
+                <label>
+                    <input type="text" name="last_name" placeholder="Фамилия" value="{{ data.last_name }}">
+                </label>
+                <label>
+                    <input type="text" name="username" placeholder="Имя пользователя" value="{{ data.username }}" required>
+                    {% if form.username %}
+                        <div class="mt-1 text-danger">{{ form.username|first }}</div>
+                    {% endif %}
+                </label>
+                <label>
+                    <input type="password" id="password" name="password" placeholder="Пароль" required>
+                    {% if form.password %}
+                        <div class="mt-1 text-danger">{{ form.password|first }}</div>
+                    {% endif %}
+                    <button type="button" id="togglePassword" class="toggle-password">Показать</button>
+                </label>
+                <label>
+                    <input type="password" id="password_repeat" name="password_repeat" placeholder="Подтвердите пароль" required>
+                    {% if form.password_repeat %}
+                        <div class="mt-1 text-danger">{{ form.password_repeat|first }}</div>
+                    {% endif %}
+                    <button type="button" id="togglePasswordRepeat" class="toggle-password">Показать</button>
+                </label>
+                <a href="{% url 'profile-view' %}">
+                    <button type="submit" class="submit-btn">Зарегистрироваться</button>
+                </a>
+            </div>
+        </form>
+        <p class="login-redirect">Уже есть аккаунт? <a href="{% url 'login-view' %}" class="login-link">Войти</a></p>
+        <div id="errorContainer" class="error-message">
+            {% if error_message %}
+                {{ error_message }}
+            {% endif %}
+        </div>
+    </div>
+    <script src="{% static 'js/hide_password.js' %}"></script>
+    <script src="{% static 'js/show_error.js' %}"></script>
+</body>
+</html>
