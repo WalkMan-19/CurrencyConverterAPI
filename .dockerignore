@@ -1,0 +1,10 @@
+# ignore all
+**
+
+
+# except
+!core/**
+!users/**
+!manage.py
+!requirements.txt
+!entrypoint.sh
