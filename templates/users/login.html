@@ -27,11 +27,17 @@
                 <button type="button" id="togglePassword" class="toggle-password">Показать</button>
             </label>
             <a href="{% url 'profile-view' %}">
-                <button type="submit" class="submit-btn">Зарегистрироваться</button>
+                <button type="submit" class="submit-btn">Войти</button>
             </a>
         </form>
         <p class="login-redirect">Хотите создать новый аккаунт? <a href="{% url 'signup-view' %}" class="login-link">Регистрация</a></p>
+        <div id="errorContainer" class="error-message">
+            {% if error_message %}
+                {{ error_message }}
+            {% endif %}
+        </div>
     </div>
     <script src="{% static 'js/hide_password.js' %}"></script>
+    <script src="{% static 'js/show_error.js' %}"></script>
 </body>
 </html>

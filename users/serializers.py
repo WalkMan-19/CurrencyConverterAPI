@@ -25,7 +25,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
     def validate(self, attrs: dict) -> dict:
         if attrs['password'] != attrs['password_repeat']:
             raise ValidationError(
-                {'password_repeat': 'Пароли должны совпадать.'}
+                {'password_repeat': 'Пароли не совпадают.'}
             )
         return attrs
 
@@ -54,7 +54,7 @@ class LoginUserSerializer(serializers.ModelSerializer):
             username=validated_data["username"],
             password=validated_data["password"],
         )):
-            raise AuthenticationFailed
+            raise AuthenticationFailed("Ошибка авторизации.", )
         return user
 
 

@@ -11,33 +11,50 @@ from users.serializers import CreateUserSerializer, LoginUserSerializer, Profile
 class SignupView(CreateAPIView):
     serializer_class = CreateUserSerializer
     permission_classes = (permissions.AllowAny,)
+    template_name = 'users/signup.html'
 
-    def get(self, request, *args, **kwargs):
-        return render(request, 'users/signup.html')
+    def get(self, request):
+        return render(request, template_name=self.template_name)
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             self.perform_create(serializer)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return render(request, 'users/signup.html', {'form': serializer.errors, 'data': request.data})
+        return render(
+            request,
+            self.template_name,
+            {
+                'error_message': serializer.errors,
+                'data': request.data
+            }
+        )
 
 
 class LoginView(CreateAPIView):
     serializer_class = LoginUserSerializer
     permission_classes = (permissions.AllowAny,)
+    template_name = 'users/login.html'
 
-    def get(self, request, *args, **kwargs):
-        return render(request, 'users/login.html')
+    def get(self, request):
+        return render(request, template_name=self.template_name)
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-    def perform_create(self, serializer):
-        login(request=self.request, user=serializer.save())
+        if serializer.is_valid(raise_exception=False):
+            login(request=self.request, user=serializer.save())
+            return Response(
+                {
+                    "message": "Авторизация прошла успешно."
+                }
+            )
+        return render(
+            request,
+            self.template_name,
+            {
+                "error_message": serializer.errors
+            }
+        )
 
 
 class ProfileView(RetrieveUpdateDestroyAPIView):
@@ -60,5 +77,5 @@ class UpdatePasswordView(UpdateAPIView):
     # permission_classes = (permissions.IsAuthenticated, )
     serializer_class = UpdatePasswordSerializer
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         return render(request, 'update_password.html')
