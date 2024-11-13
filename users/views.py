@@ -58,9 +58,12 @@ class ProfileView(RetrieveUpdateDestroyAPIView):
 
 
 class UpdatePasswordView(UpdateAPIView):
-    permission_classes = (permissions.IsAuthenticated, )
+    permission_classes = (permissions.IsAuthenticated,)
     serializer_class = UpdatePasswordSerializer
     template_name = 'users/update_password.html'
+
+    def get_object(self):
+        return self.request.user
 
     def get(self, request):
         return render(request, self.template_name)
