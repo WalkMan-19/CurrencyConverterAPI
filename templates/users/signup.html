@@ -23,22 +23,13 @@
             </div>
             <label>
                 <input type="text" name="username" placeholder="Имя пользователя" value="{{ data.username }}" required>
-                {% if form.username %}
-                    <div class="mt-1 text-danger">{{ form.username|first }}</div>
-                {% endif %}
             </label>
             <label>
                 <input type="password" id="password" name="password" placeholder="Пароль" required>
-                {% if form.password %}
-                    <div class="mt-1 text-danger">{{ form.password|first }}</div>
-                {% endif %}
                 <button type="button" id="togglePassword" class="toggle-password">Показать</button>
             </label>
             <label>
                 <input type="password" id="password_repeat" name="password_repeat" placeholder="Подтвердите пароль" required>
-                {% if form.password_repeat %}
-                    <div class="mt-1 text-danger">{{ form.password_repeat|first }}</div>
-                {% endif %}
                 <button type="button" id="togglePasswordRepeat" class="toggle-password">Показать</button>
             </label>
             <a href="{% url 'profile-view' %}">

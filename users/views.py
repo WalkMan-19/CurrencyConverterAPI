@@ -1,8 +1,7 @@
 from django.contrib.auth import login, logout
-from django.shortcuts import render
-from rest_framework import status, permissions
+from django.shortcuts import render, redirect
+from rest_framework import permissions
 from rest_framework.generics import CreateAPIView, RetrieveUpdateDestroyAPIView, UpdateAPIView
-from rest_framework.response import Response
 
 from users.models import User
 from users.serializers import CreateUserSerializer, LoginUserSerializer, ProfileSerializer, UpdatePasswordSerializer
@@ -19,9 +18,10 @@ class SignupView(CreateAPIView):
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-            self.perform_create(serializer)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return render(request, self.template_name, {'error_message': serializer.errors, 'data': request.data})
+            user = self.perform_create(serializer)
+            login(request=request, user=user)
+            return redirect('profile-view')
+        return render(request, self.template_name, {'error_message': serializer.errors})
 
 
 class LoginView(CreateAPIView):
@@ -36,7 +36,7 @@ class LoginView(CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid(raise_exception=False):
             login(request=self.request, user=serializer.save())
-            return Response({"message": "Авторизация прошла успешно."})
+            return redirect('profile-view')
         return render(request, self.template_name, {"error_message": serializer.errors})
 
 
