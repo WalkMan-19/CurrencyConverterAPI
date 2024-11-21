@@ -16,3 +16,38 @@ services:
       interval: 3s
       timeout: 3s
       retries: 5
+
+  api:
+    build: .
+    restart: always
+    env_file:
+      - .env
+    environment:
+      DB_HOST: db
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    volumes:
+      - django_static:/app/static
+
+
+  collect_static:
+    build: .
+    env_file:
+      - .env
+    environment:
+      DB_HOST: db
+    depends_on:
+      db:
+        condition: service_healthy
+      api:
+        condition: service_started
+    command: python manage.py collectstatic -c --no-input
+    volumes:
+      - django_static:/app/static
+
+volumes:
+  django_static:
+    driver: local
