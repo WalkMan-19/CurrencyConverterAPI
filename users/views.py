@@ -18,8 +18,7 @@ class SignupView(CreateAPIView):
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-            user = self.perform_create(serializer)
-            login(request=request, user=user)
+            login(request=self.request, user=self.perform_create(serializer))
             return redirect('profile-view')
         return render(request, self.template_name, {'error_message': serializer.errors})
 
