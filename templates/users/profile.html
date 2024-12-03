@@ -4,28 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/profile_styles.css'%}">
+    <link rel="stylesheet" href="{% static 'css/profile_styles.css' %}">
     <title>Профиль</title>
 </head>
 <body>
     <div class="sidebar">
-        <h3>CurrencyConverterAPI</h3>
-        <ul>
-            <li><a href="/home" style="color: #f7f7f7;">Главная</a></li>
-            <li><a href="/calculator" style="color: #f7f7f7;">Калькулятор</a></li>
-            <li><a href="/logout" style="color: #f7f7f7;">Выйти</a></li>
-        </ul>
-    </div>
-    <div class="main">
-        <div class="profile">
-            <div class="profile-title">Профиль</div>
-            <p><strong>Имя пользователя:</strong> {{ user.username }}</p>
-            <p><strong>Имя:</strong> {{ user.first_name }}</p>
-            <p><strong>Фамилия:</strong> {{ user.last_name }}</p>
+        <h1><span>CurrencyConverter</span><span>API</span></h1>
+        <div class="links">
+            <a href="#">Главная</a>
+            <a href="#">Конвертация</a>
         </div>
     </div>
-    <div class="actions">
-        <a href="{% url 'update_password-view' %}" class="action-button">Обновить пароль</a>
+    <div class="profile-section">
+        <div class="profile-header">Профиль</div>
+        <div class="profile-info">
+            <h2>Информация о профиле</h2>
+            <p class="update-info">Обновите информацию о вашем профиле</p>
+            <form method="post" action="{% url 'profile-view' %}">
+                {% csrf_token %}
+                <div class="info-block">
+                    <label class="input-label">Имя пользователя</label>
+                    <input type="text" placeholder="Введите имя пользователя..." value="{{ user.username }}">
+                    <label class="input-label">Имя</label>
+                    <input type="text" placeholder="Введите имя..." value="{{ user.first_name }}">
+                    <label class="input-label">Фамилия</label>
+                    <input type="text" placeholder="Введите фамилию..." value="{{ user.last_name }}">
+                    <div class="buttons">
+                        <button class="save-button">Сохранить</button>
+                    </div>
+                </div>
+            </form>
+            <h2>Управление аккаунтом</h2>
+            <p class="update-info">Обновите пароль</p>
+            <div class="info-block buttons">
+                <a href="{% url 'update_password-view' %}" class="button change-password">Изменить пароль</a>
+                <form method="post" action="{% url 'profile-view' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="button delete-account">Удалить аккаунт</button>
+                </form>
+            </div>
+        </div>
     </div>
 </body>
 </html>
