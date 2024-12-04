@@ -16,6 +16,8 @@ services:
       interval: 3s
       timeout: 3s
       retries: 5
+    volumes:
+      - converter_pg_data:/var/lib/postgresql/data
 
   api:
     build: .
@@ -31,7 +33,8 @@ services:
       - "8000:8000"
     volumes:
       - django_static:/app/static
-
+      - ./core/:/app/core/
+      - ./users/:/app/users/
 
   collect_static:
     build: .
@@ -50,4 +53,6 @@ services:
 
 volumes:
   django_static:
+    driver: local
+  converter_pg_data:
     driver: local
