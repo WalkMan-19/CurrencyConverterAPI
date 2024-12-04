@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
+from django.db import transaction
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError, AuthenticationFailed
 
@@ -62,6 +63,12 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'first_name', 'last_name',]
+
+    def validate_username(self, value):
+        request = self.context.get('request')
+        if User.objects.exclude(id=request.user.id).filter(username=value).exists():
+            raise serializers.ValidationError("Имя пользователя уже занято.")
+        return value
 
 
 class UpdatePasswordSerializer(serializers.Serializer):

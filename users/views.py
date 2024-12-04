@@ -55,20 +55,18 @@ class ProfileView(RetrieveUpdateDestroyAPIView):
 
     def post(self, request, *args, **kwargs):
         user = self.get_object()
-        username = request.POST.get('username', '').strip()
-        first_name = request.POST.get('first_name', '').strip()
-        last_name = request.POST.get('last_name', '').strip()
+        serializer = self.serializer_class(user, data=request.data, context={'request': request})
 
-        if User.objects.exclude(id=user.id).filter(username=username).exists():
-            return render(request, self.template_name, {'user': user, 'error_message': 'Имя пользователя уже занято.'})
-
-        if username:
-            user.username = username
-        user.first_name = first_name
-        user.last_name = last_name
-        user.save()
-
-        return render(request, self.template_name, {'user': user, 'success_message': 'Информация успешно обновлена.'})
+        if serializer.is_valid():
+            serializer.save()
+            return render(request, self.template_name,
+                          {'user': user, 'success_message': 'Информация успешно обновлена.'})
+        else:
+            return render(request, self.template_name, {
+                'user': user,
+                'serializer': serializer,
+                'error_message': 'Это имя пользователя уже занято.'  # serializer.errors.get('username', [''])[0]
+            })
 
     def perform_destroy(self, instance):
         logout(self.request)
