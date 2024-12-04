@@ -22,27 +22,30 @@
             <p class="update-info">Обновите информацию о вашем профиле</p>
             <form method="post" action="{% url 'profile-view' %}">
                 {% csrf_token %}
+                <input type="hidden" name="id" value="{{ user.id }}">
                 <div class="info-block">
                     <label class="input-label">Имя пользователя</label>
-                    <input type="text" placeholder="Введите имя пользователя..." value="{{ user.username }}">
+                    <input type="text" name="username" placeholder="Введите имя пользователя..." value="{{ user.username }}">
                     <label class="input-label">Имя</label>
-                    <input type="text" placeholder="Введите имя..." value="{{ user.first_name }}">
+                    <input type="text" name="first_name" placeholder="Введите имя..." value="{{ user.first_name }}">
                     <label class="input-label">Фамилия</label>
-                    <input type="text" placeholder="Введите фамилию..." value="{{ user.last_name }}">
+                    <input type="text" name="last_name" placeholder="Введите фамилию..." value="{{ user.last_name }}">
                     <div class="buttons">
                         <button class="save-button">Сохранить</button>
                     </div>
+                    {% if error_message %}
+                        <div class="error">{{ error_message }}</div>
+                    {% endif %}
+                    {% if success_message %}
+                        <div class="success">{{ success_message }}</div>
+                    {% endif %}
                 </div>
             </form>
             <h2>Управление аккаунтом</h2>
             <p class="update-info">Обновите пароль</p>
             <div class="info-block buttons">
                 <a href="{% url 'update_password-view' %}" class="button change-password">Изменить пароль</a>
-                <form method="post" action="{% url 'profile-view' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="_method" value="DELETE">
-                    <button type="submit" class="button delete-account">Удалить аккаунт</button>
-                </form>
+                <button type="submit" class="button delete-account">Удалить аккаунт</button>
             </div>
         </div>
     </div>
