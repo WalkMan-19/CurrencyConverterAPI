@@ -13,12 +13,13 @@ pip install -r requirements.txt
 
 ### 3. Заполнить .env файл:
 ```xml
+SECRET_KEY=django-insecure-ptxj-r*tqh1#08n+2+09582l%q(2nctus0z_4=0)93ly0n%2$8
+DEBUG=TRUE
 DB_NAME=db
 DB_USER=postgres
 DB_PASSWORD=postgres
-DB_HOST=locahost
-SECRET_KEY=django-insecure-ptxj-r*tqh1#08n+2+09582l%q(2nctus0z_4=0)93ly0n%2$8
-DEBUG=True
+DB_HOST=127.0.0.1
+DB_PORT=5432
 EXCHANGE_RATE_API_KEY=347aedda8f157b2e2cf1b4ab
 ```
 
