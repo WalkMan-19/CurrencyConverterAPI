@@ -19,7 +19,7 @@ class ConverterView(generics.CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        amount = serializer.validated_data['amount']
+        amount = float(serializer.validated_data['amount'])
         base_currency_code = request.data.get('base_currency')
         target_currency_code = request.data.get('target_currency')
 
@@ -32,13 +32,10 @@ class ConverterView(generics.CreateAPIView):
         except ExchangeRate.DoesNotExist:
             return Response({"error": "Exchange rate not found."}, status=status.HTTP_404_NOT_FOUND)
 
-        converted_amount = amount * exchange_rate.rate
+        converted_amount = amount * float(exchange_rate.rate)
 
-        return Response({
-            "base_currency": base_currency_code,
-            "target_currency": target_currency_code,
-            "amount": amount,
-            "converted_amount": converted_amount,
-            "rate": exchange_rate.rate
-        }, status=status.HTTP_200_OK)
-
+        return render(request, template_name=self.template_name, context={
+            'result': converted_amount,
+            'currencies': Currency.objects.all()
+        }
+                      )

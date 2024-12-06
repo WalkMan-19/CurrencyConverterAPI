@@ -50,6 +50,9 @@
                     <div class="buttons">
                         <button class="ready-button">Готово</button>
                     </div>
+                    {% if result %}
+                        {{ result }}
+                    {% endif %}
                     {% if error_message %}
                         <div class="error">{{ error_message }}</div>
                     {% endif %}
