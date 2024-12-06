@@ -1,0 +1,29 @@
+[
+  {
+    "model": "converter.exchangerate",
+    "pk": 1,
+    "fields": {
+      "base_currency": 1,
+      "target_currency": 2,
+      "rate": "0.85"
+    }
+  },
+  {
+    "model": "converter.exchangerate",
+    "pk": 2,
+    "fields": {
+      "base_currency": 1,
+      "target_currency": 3,
+      "rate": "72.56"
+           }
+  },
+  {
+    "model": "converter.exchangerate",
+    "pk": 3,
+    "fields": {
+      "base_currency": 2,
+      "target_currency": 3,
+      "rate": "85.00"
+    }
+  }
+]

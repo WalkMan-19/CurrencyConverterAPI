@@ -1,0 +1,26 @@
+[
+  {
+    "model": "converter.currency",
+    "pk": 1,
+    "fields": {
+      "code": "USD",
+      "name": "United States Dollar"
+    }
+  },
+  {
+    "model": "converter.currency",
+    "pk": 2,
+    "fields": {
+      "code": "EUR",
+      "name": "Euro"
+    }
+  },
+  {
+    "model": "converter.currency",
+    "pk": 3,
+    "fields": {
+      "code": "RUB",
+      "name": "Russian Ruble"
+    }
+  }
+]
