@@ -103,8 +103,27 @@ body {
     font-size: 16px;
     cursor: pointer;
 }
+.save-button:hover {
+    background-color: #168c6f;
+}
 .links {
     margin-top: 50px;
     font-weight: bold;
     font-size: 15px;
+}
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    margin-top: 10px;
+   }
+.success {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    margin-top: 10px;
 }
