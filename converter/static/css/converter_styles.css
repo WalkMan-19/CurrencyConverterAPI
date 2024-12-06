@@ -1,0 +1,177 @@
+body {
+    display: flex;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+.sidebar {
+    background-color: #24323d;
+    width: 275px;
+    height: 100vh;
+    padding: 20px;
+    color: #f7f7f7;
+}
+.sidebar h1 {
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+    margin: 0;
+}
+.sidebar h1 span:nth-child(1) {
+    color: #f7f7f7;
+}
+.sidebar h1 span:nth-child(2) {
+    color: #1ab188;
+}
+.sidebar a {
+    color: #f7f7f7;
+    display: block;
+    margin: 10px 0;
+    text-decoration: none;
+    text-align: left;
+}
+.converter-section {
+    flex-grow: 1;
+    background-color: #f0f0f0;
+}
+.converter-header {
+    background-color: white;
+    padding: 20px;
+    text-align: left;
+    font-size: 22px;
+    font-weight: bold;
+    color: black;
+}
+.converter-info {
+    padding: 20px;
+}
+.converter-info h2 {
+    margin: 0 0 10px 0;
+    font-size: 20px;
+    font-weight: normal;
+}
+.converter-info-small {
+    color: gray;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.converter-block {
+    background-color: #f7f7f7;
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 80%;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.input-label {
+    font-weight: bold;
+    margin-bottom: 2px;
+    display: block;
+}
+.converter-block input {
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+.converter-block input:focus {
+    border-color: #1ab188;
+    box-shadow: 0 0 5px rgba(26, 185, 136, 0.5);
+    outline: none;
+}
+.converter-block select {
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #fff;
+    appearance: none;
+}
+.currency-selectors {
+    display: flex; /* Размещаем селекторы в одной строке */
+    justify-content: space-between; /* Отделяем селекторы друг от друга */
+    margin-bottom: 15px; /* Отступ снизу от селекторов */
+}
+
+.currency-select {
+    flex: 1; /* Каждый селектор занимает равное пространство */
+    margin-right: 5px; /* Отступ между селекторами */
+}
+
+.currency-select:last-child {
+    margin-right: 0; /* Убираем отступ у последнего селектора */
+}
+
+.converter-block select {
+    width: 50%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #fff;
+    appearance: none;
+}
+.divider {
+    border: none;
+    height: 1px;
+    background-color: #ccc;
+    margin: 10px 0;
+}
+.currency-select::after {
+    /*content: '▼';*/
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: #ccc;
+    pointer-events: none;
+}
+.buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+}
+.button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+}
+.ready-button {
+    background-color: #1ab188;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+.ready-button:hover {
+    background-color: #168c6f;
+}
+.links {
+    margin-top: 50px;
+    font-weight: bold;
+    font-size: 15px;
+}
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+.success {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    margin-top: 10px;
+}

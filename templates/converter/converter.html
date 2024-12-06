@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/converter_styles.css' %}">
+    <title>Конвертация</title>
+</head>
+<body>
+    <div class="sidebar">
+        <h1><span>CurrencyConverter</span><span>API</span></h1>
+        <div class="links">
+            <a href="#">Главная</a>
+            <a href="{% url 'profile-view' %}">Профиль</a>
+        </div>
+    </div>
+    <div class="converter-section">
+        <div class="converter-header">Конвертация</div>
+        <div class="converter-info">
+            <h2>Параметры запроса</h2>
+            <p class="converter-info-small">Введите параметры: исходная валюта, целевая валюта и сумма</p>
+            <form method="post" action="{% url 'converter-view' %}">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ user.id }}">
+                <div class="converter-block">
+                    <label class="input-label">Сумма</label>
+                    <input type="text" name="amount" placeholder="Введите сумму..." required>
+                    <hr class="divider">
+                    <div class="currency-selectors">
+                        <div class="currency-select">
+                            <label class="input-label">Исходная валюта</label>
+                            <select name="base_currency" required>
+                                <option value="" disabled selected>Выберите исходную валюту...</option>
+                                {% for currency in currencies %}
+                                    <option value="{{ currency.code }}">{{ currency.code }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="currency-select">
+                            <label class="input-label">Целевая валюта</label>
+                            <select name="target_currency" required>
+                                <option value="" disabled selected>Выберите целевую валюту...</option>
+                                {% for currency in currencies %}
+                                    <option value="{{ currency.code }}">{{ currency.code }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <button class="ready-button">Готово</button>
+                    </div>
+                    {% if error_message %}
+                        <div class="error">{{ error_message }}</div>
+                    {% endif %}
+                    {% if success_message %}
+                        <div class="success">{{ success_message }}</div>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
