@@ -93,6 +93,7 @@ STATIC_ROOT = BASE_DIR.joinpath('staticfiles')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'users/static'),
+    os.path.join(BASE_DIR, 'converter/static'),
 ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
