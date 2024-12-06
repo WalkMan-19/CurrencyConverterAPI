@@ -66,9 +66,10 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     def validate_username(self, value):
         request = self.context.get('request')
-        if User.objects.exclude(id=request.user.id).filter(username=value).exists():
-            raise serializers.ValidationError("Имя пользователя уже занято.")
-        return value
+        with transaction.atomic():
+            if User.objects.exclude(id=request.user.id).filter(username=value).exists():
+                raise serializers.ValidationError("Имя пользователя уже занято.")
+            return value
 
 
 class UpdatePasswordSerializer(serializers.Serializer):
