@@ -5,6 +5,7 @@
 # except
 !core/**
 !users/**
+!converter/**
 !manage.py
 !requirements.txt
 !entrypoint.sh

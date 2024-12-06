@@ -35,6 +35,7 @@ services:
       - django_static:/app/static
       - ./core/:/app/core/
       - ./users/:/app/users/
+      - ./converter/:/app/converter/
 
   collect_static:
     build: .
