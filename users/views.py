@@ -56,7 +56,6 @@ class ProfileView(RetrieveUpdateDestroyAPIView):
     def post(self, request, *args, **kwargs):
         user = self.get_object()
         serializer = self.serializer_class(user, data=request.data, context={'request': request})
-
         if serializer.is_valid():
             serializer.save()
             return render(request, self.template_name,
@@ -82,3 +81,12 @@ class UpdatePasswordView(UpdateAPIView):
 
     def get(self, request):
         return render(request, self.template_name)
+
+    def post(self, request):
+        user = self.get_object()
+        serializer = self.serializer_class(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.update(instance=user, validated_data=serializer.validated_data)
+            login(request=self.request, user=user)
+            return redirect('profile-view')
+        return render(request, self.template_name, {"error_message": serializer.errors})
