@@ -52,6 +52,24 @@ services:
     volumes:
       - django_static:/app/static
 
+  load_data:
+    build: .
+    env_file:
+      - .env
+    environment:
+      DB_HOST: db
+    depends_on:
+      db:
+        condition: service_healthy
+      api:
+        condition: service_started
+    command: python manage.py load_data
+    volumes:
+      - ./core/:/app/core/
+      - ./users/:/app/users/
+      - ./converter/:/app/converter/
+
+
 volumes:
   django_static:
     driver: local
