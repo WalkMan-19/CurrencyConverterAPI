@@ -5,7 +5,8 @@
     "fields": {
       "base_currency": 1,
       "target_currency": 2,
-      "rate": "0.85"
+      "rate": "0.85",
+      "last_update": "2024-12-20T01:47:00Z"
     }
   },
   {
@@ -14,8 +15,9 @@
     "fields": {
       "base_currency": 1,
       "target_currency": 3,
-      "rate": "72.56"
-           }
+      "rate": "72.56",
+      "last_update": "2024-12-20T01:47:00Z"
+    }
   },
   {
     "model": "converter.exchangerate",
@@ -23,7 +25,8 @@
     "fields": {
       "base_currency": 2,
       "target_currency": 3,
-      "rate": "85.00"
+      "rate": "85.00",
+      "last_update": "2024-12-20T01:47:00Z"
     }
   }
 ]
