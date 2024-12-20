@@ -19,6 +19,12 @@ services:
     volumes:
       - converter_pg_data:/var/lib/postgresql/data
 
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - ${REDIS_PORT}:${REDIS_PORT}
+
   api:
     build: .
     restart: always
@@ -26,9 +32,12 @@ services:
       - .env
     environment:
       DB_HOST: db
+      REDIS_URL: redis://redis:${REDIS_PORT}/0
     depends_on:
       db:
         condition: service_healthy
+      redis:
+        condition: service_started
     ports:
       - "8000:8000"
     volumes:
@@ -64,6 +73,46 @@ services:
       api:
         condition: service_started
     command: python manage.py load_data
+    volumes:
+      - ./core/:/app/core/
+      - ./users/:/app/users/
+      - ./converter/:/app/converter/
+
+  celery_worker:
+    build: .
+    env_file:
+      - .env
+    environment:
+      DB_HOST: db
+      REDIS_URL: redis://redis:${REDIS_PORT}/0
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      api:
+        condition: service_started
+    command: celery -A core.celery worker --loglevel=info
+    volumes:
+      - ./core/:/app/core/
+      - ./users/:/app/users/
+      - ./converter/:/app/converter/
+
+  celery_beat:
+    build: .
+    env_file:
+      - .env
+    environment:
+      DB_HOST: db
+      REDIS_URL: redis://redis:${REDIS_PORT}/0
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      api:
+        condition: service_started
+    command: celery -A core.celery beat --loglevel=info
     volumes:
       - ./core/:/app/core/
       - ./users/:/app/users/
