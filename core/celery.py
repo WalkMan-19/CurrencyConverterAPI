@@ -11,6 +11,6 @@ app.autodiscover_tasks()
 app.conf.beat_schedule = {
     'fetch-data-every-midnight': {
         'task': 'converter.tasks.fetch_exchange_rates',
-        'schedule': crontab(minute="0"),  # crontab(minute="*") - каждую минуту
+        'schedule': crontab(minute="*"),  # crontab(minute="*") - каждую минуту
     },
 }
