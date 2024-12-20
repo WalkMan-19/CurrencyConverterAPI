@@ -12,4 +12,5 @@ COPY . .
 
 ENTRYPOINT ["bash", "entrypoint.sh"]
 
-CMD ["gunicorn", "core.wsgi", "-w", "4", "-b", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+#CMD ["gunicorn", "core.wsgi", "-w", "4", "-b", "0.0.0.0:8000"]
