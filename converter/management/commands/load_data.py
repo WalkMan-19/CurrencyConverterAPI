@@ -10,7 +10,7 @@ class Command(BaseCommand):
     loaddata_command = "loaddata"
     filenames = [
         "fixtures_currency",
-        "fixtures_exr",
+        # "fixtures_exr",
     ]
 
     def __init__(self):
