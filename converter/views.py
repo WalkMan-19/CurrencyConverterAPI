@@ -11,7 +11,17 @@ class ConverterView(generics.CreateAPIView):
     template_name = 'converter/converter.html'
 
     def get(self, request):
-        return render(request, template_name=self.template_name, context={'currencies': Currency.objects.all()})
+        latest_exchange_rate = ExchangeRate.objects.order_by('-last_update').first()
+        last_update = latest_exchange_rate.last_update if latest_exchange_rate else None
+
+        return render(
+            request,
+            template_name=self.template_name,
+            context={
+                'currencies': Currency.objects.all(),
+                'last_update': last_update,
+            }
+        )
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -30,10 +40,11 @@ class ConverterView(generics.CreateAPIView):
             converted_amount = amount * float(exchange_rate.rate)
 
             return render(request, template_name=self.template_name, context={
-            'result': converted_amount,
-            'currencies': Currency.objects.all(),
-            'error_message': serializer.errors,
-            'amount': amount,
-            'base_currency_code': base_currency_code,
-            'target_currency_code': target_currency_code,
-        })
+                'result': converted_amount,
+                'currencies': Currency.objects.all(),
+                'error_message': serializer.errors,
+                'amount': amount,
+                'base_currency_code': base_currency_code,
+                'target_currency_code': target_currency_code,
+                'last_update': exchange_rate.last_update
+            })

@@ -24,6 +24,7 @@
                 {% csrf_token %}
                 <input type="hidden" name="id" value="{{ user.id }}">
                 <div class="converter-block">
+                    <p class="converter-info-small">Дата последнего обновления: {{ last_update }}</p>
                     <label class="input-label">Сумма</label>
                     <input type="text" name="amount" placeholder="Введите сумму..." required>
                     <hr class="divider">
