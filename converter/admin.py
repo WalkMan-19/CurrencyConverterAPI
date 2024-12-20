@@ -1,6 +1,10 @@
 from django.contrib import admin
+from .models import Currency, ExchangeRate
 
-from converter.models import Currency, ExchangeRate
+@admin.register(Currency)
+class CurrencyAdmin(admin.ModelAdmin):
+    list_display = ('code', 'name')
 
-admin.site.register(Currency)
-admin.site.register(ExchangeRate)
+@admin.register(ExchangeRate)
+class ExchangeRateAdmin(admin.ModelAdmin):
+    list_display = ('base_currency', 'target_currency', 'rate', 'last_update')
