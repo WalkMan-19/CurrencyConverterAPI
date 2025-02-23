@@ -2,8 +2,6 @@
 
 ## Данный проект представляет собой API с использованием Django Rest Framework, планировщика Celery, базой Postgres и сервиса exchangerate.host с последующей сборкой в Docker.
 
-### Проект выполнен группой ЭМС-171, команда ITSuperFriends: Овчинников, Ликсюткина, Лисица, Юсипов.
-
 ### 1. Установка зависимостей.
 ``` 
 pip install -r requirements.txt
